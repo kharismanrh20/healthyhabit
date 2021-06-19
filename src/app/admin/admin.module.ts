@@ -4,6 +4,9 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialDesign } from '../material/material.module';
+import { TipssehatComponent } from './tipssehat/tipssehat.component';
+import { TipsdietsehatComponent } from './tipsdietsehat/tipsdietsehat.component';
+import { CatatankuComponent } from './catatanku/catatanku.component';
 
 const routes: Routes =[
 {
@@ -13,6 +16,18 @@ const routes: Routes =[
     {
       path:'dashboard',
       component:DashboardComponent
+    },
+    {
+      path:'tipssehat',
+      component:TipssehatComponent
+    },
+    {
+      path:'tipsdietsehat',
+      component:TipsdietsehatComponent
+    },
+    {
+      path:'catatanku',
+      component:CatatankuComponent
     },
     {
       path:'',
@@ -26,7 +41,10 @@ const routes: Routes =[
 @NgModule({
   declarations: [
     AdminComponent,
-    DashboardComponent
+    DashboardComponent,
+    TipssehatComponent,
+    TipsdietsehatComponent,
+    CatatankuComponent
   ],
   imports: [
     CommonModule,

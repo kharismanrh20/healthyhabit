@@ -7,6 +7,8 @@ import { MaterialDesign } from '../material/material.module';
 import { TipssehatComponent } from './tipssehat/tipssehat.component';
 import { TipsdietsehatComponent } from './tipsdietsehat/tipsdietsehat.component';
 import { CatatankuComponent } from './catatanku/catatanku.component';
+import { CatatanDetailComponent } from './catatan-detail/catatan-detail.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes =[
 {
@@ -44,12 +46,14 @@ const routes: Routes =[
     DashboardComponent,
     TipssehatComponent,
     TipsdietsehatComponent,
-    CatatankuComponent
+    CatatankuComponent,
+    CatatanDetailComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialDesign
+    MaterialDesign,
+    FormsModule
   ]
 })
 export class AdminModule { }

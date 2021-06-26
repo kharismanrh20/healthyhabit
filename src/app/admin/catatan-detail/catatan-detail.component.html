@@ -1,0 +1,24 @@
+<h3 mat-dialog-title>
+    Detail Catatan 
+ </h3>
+ <div mat-dialog-content>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Minggu</mat-label>
+        <input matInput [(ngModel)]="data.week">      
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Aktivitas</mat-label>
+        <input matInput [(ngModel)]="data.activity">     
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Perkembangan</mat-label>
+        <input matInput [(ngModel)]="data.progress" >     
+    </mat-form-field>
+ </div>
+ <div mat-dialog-actions align="end">
+ <button mat-button mat-dialog-close>Batal</button>
+ <button mat-flat-button (click)="saveData()">Simpan</button>
+ </div>
+ 
+ 
+

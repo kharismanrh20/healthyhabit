@@ -9,6 +9,7 @@ import { TipsdietsehatComponent } from './tipsdietsehat/tipsdietsehat.component'
 import { CatatankuComponent } from './catatanku/catatanku.component';
 import { CatatanDetailComponent } from './catatan-detail/catatan-detail.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes =[
 {
@@ -53,7 +54,8 @@ const routes: Routes =[
     CommonModule,
     RouterModule.forChild(routes),
     MaterialDesign,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class AdminModule { }

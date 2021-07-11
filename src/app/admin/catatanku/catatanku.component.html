@@ -1,11 +1,14 @@
-<mat-card>
+<div *ngIf="loading" style="height: 300px;" class="uk-flex uk-flex-center uk-flex-middle">
+    <mat-spinner></mat-spinner>
+</div>
+<mat-card  *ngIf="!loading">
     <mat-card-header>
         <mat-card-title>{{title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <div class="uk-flex">
             <span class="uk-width-expand"></span>
-            <button mat-flat-button color="primary" (click)='catatanDetail({},-1)'>+</button>
+            <button mat-flat-button color="primary" (click)='catatanDetail({},-1)'>Tambah Catatan</button>
         </div>
         <table class="uk-table uk-table-middle uk-table-divider">
             <thead>                
@@ -16,14 +19,14 @@
                 <th align="right"></th>
             </thead>
             <tbody>
-                <tr *ngFor="let note of notes; let idx=index">
+                <tr *ngFor="let book of books; let idx=index">
                     <td>{{idx+1}}</td>
-                    <td>{{note.week}}</td>
-                    <td>{{note.activity}}</td>
-                    <td>{{note.progress}}</td>
+                    <td>{{book.week}}</td>
+                    <td>{{book.activity}}</td>
+                    <td>{{book.progress}}</td>
                     <td align="right">
-                        <button mat-button color="primary" (click)="catatanDetail(note,idx)">Edit</button>
-                        <button mat-button color="warn" (click)="deleteCatatan(idx)">Delete</button>
+                        <button mat-button color="primary" (click)="catatanDetail(book,idx)">Edit</button>
+                        <button mat-button color="warn" (click)="deleteCatatan(book.id, idx)" [disabled]="loadingDelete[idx]">{{loadingDelete[idx] ? 'Menghapus..':'Delete'}}</button>
                     </td>
                 </tr>
             </tbody> 

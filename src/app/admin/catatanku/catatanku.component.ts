@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
 import { CatatanDetailComponent } from '../catatan-detail/catatan-detail.component';
 
 @Component({
@@ -9,35 +10,26 @@ import { CatatanDetailComponent } from '../catatan-detail/catatan-detail.compone
 })
 export class CatatankuComponent implements OnInit {
   title:any;
-  note:any={};
-  notes:any=[];
+  book:any={};
+  books:any=[];
   constructor(
-    public dialog:MatDialog
+    public dialog:MatDialog,
+    public api:ApiService
   ) { }
 
   ngOnInit(): void {
-    this.title='Catatanku';
-    this.note={
-      week:'pertama',
-      activity:'olahraga',
-      progress:'tubuh lebih sehat dan bugar'
-    };
-    this.getNotes();
   }
-getNotes()
+  loading!: boolean;
+getBooks()
 {
-  this.notes=[
-    {
-      week:'pertama',
-      activity:'olahraga',
-      progress:'tubuh lebih sehat dan bugar'
-    },
-    {
-      week:'kedua',
-      activity:'makan makanan bernutrisi',
-      progress:'berat badan sedikit menurun'
-    }
-  ];
+  this.loading=true;
+  this.api.get('books').subscribe(result=>{
+    this.books=result;
+    this.loading=false;
+  }, error=>{
+    this.loading=false;
+    alert('Tidak dapat mengambil data');
+  })
 }
 catatanDetail(data: any, idx: any) {
   let dialog = this.dialog.open(CatatanDetailComponent, {
@@ -47,16 +39,27 @@ catatanDetail(data: any, idx: any) {
   dialog.afterClosed().subscribe(res => {
     if (res) {
       //jika idx=-1 (penambahan data baru) maka tambahkan data
-      if (idx == -1) this.notes.push(res);
+      if (idx == -1) this.books.push(res);
       //jika tidak maka perbarui data
-      else this.notes[idx] = data;
+      else this.books[idx] = data;
     }
   })
 }
-deleteCatatan(idx:any)
+loadingDelete:any={};
+deleteCatatan(id: any, idx:any)
 {
   var conf=confirm('Delete item?');
   if(conf)
-  this.notes.splice(idx,1);
+  {
+    this.loadingDelete[idx]=true;
+    this.api.delete('books/'+id).subscribe(res=>{
+      this.books.splice(idx,1);
+      this.loadingDelete[idx]=false;
+    }, error=>{
+      this.loadingDelete[idx]=false;
+      alert('Tidak dapat menghapus data');
+    });
+  }
+
 }
 }

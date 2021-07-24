@@ -6,7 +6,7 @@
     </button>
     <span>Healthy Habit</span>
     <div class="uk-width-expand"></div>
-    <button mat-button (click)="logout">Logout</button>
+    <button mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 <!--end toolbar-->
   
@@ -22,6 +22,10 @@
     [fixedBottomGap]="0">
   
     <mat-nav-list>
+        <mat-list-item routerLink="/admin/dashboard">
+            <mat-icon matListIcon>dashboard</mat-icon>
+            <h3 matLine>Dashboard</h3>
+        </mat-list-item>
         <mat-list-item routerLink="/admin/tipssehat">
             <mat-icon matListIcon>health_and_safety</mat-icon>
             <h3 matLine>Tips Sehat</h3>

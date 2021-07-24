@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { CatatanDetailComponent } from '../catatan-detail/catatan-detail.component';
@@ -10,25 +12,34 @@ import { CatatanDetailComponent } from '../catatan-detail/catatan-detail.compone
 })
 export class CatatankuComponent implements OnInit {
   title:any;
-  book:any={};
   books:any=[];
+  userData: any={};
   constructor(
     public dialog:MatDialog,
-    public api:ApiService
+    public api:ApiService,
+    public db: AngularFirestore,
+    public auth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
+    this.title='Catatanku';
+    this.auth.user.subscribe(user=>{
+      this.userData = user;
+      this.getBooks();
+    });
   }
   loading!: boolean;
 getBooks()
 {
   this.loading=true;
-  this.api.get('books').subscribe(result=>{
-    this.books=result;
+  this.db.collection('books', ref=>{
+    return ref.where('uid','==', this.userData.uid);
+  }).valueChanges({idField : 'id'}).subscribe(res=>{
+    console.log(res);
+    this.books=res;
     this.loading=false;
-  }, error=>{
+  },err=>{
     this.loading=false;
-    alert('Tidak dapat mengambil data');
   })
 }
 catatanDetail(data: any, idx: any) {
@@ -51,11 +62,10 @@ deleteCatatan(id: any, idx:any)
   var conf=confirm('Delete item?');
   if(conf)
   {
-    this.loadingDelete[idx]=true;
-    this.api.delete('books/'+id).subscribe(res=>{
+    this.db.collection('books').doc(id).delete().then(res=>{
       this.books.splice(idx,1);
       this.loadingDelete[idx]=false;
-    }, error=>{
+    }).catch(err=>{
       this.loadingDelete[idx]=false;
       alert('Tidak dapat menghapus data');
     });

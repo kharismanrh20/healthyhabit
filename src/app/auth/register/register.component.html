@@ -21,7 +21,7 @@
     <div class="uk-width-expand">
       <button mat-button routerLink="/login">Login</button>
     </div>
-    <button mat-raised-button color="primary" (click)="register()" [disabled]="loading">{{loading ? 'TUNGGU..':'REGISTER'}}</button>
+    <button mat-raised-button color="primary" (click)="register(user)" [disabled]="loading">{{loading ? 'TUNGGU..':'REGISTER'}}</button>
   </div>
 </mat-card-content>
 </mat-card>

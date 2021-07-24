@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "catatan-4b022": {
+      "hosting": {
+        "healthyhabit": [
+          "catatan-4b022"
+        ]
+      }
+    }
+  }
+}
